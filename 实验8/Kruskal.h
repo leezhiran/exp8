@@ -7,20 +7,7 @@
 using namespace std;
 #define INF 0x3f3f3f3f
 /*KRUSKAL O(n)=nlogn*/
-class Edge {
-public:
-	int from;
-	int to;
-	int cost;
-	Edge(int from, int to, int cost) {
-		this->from = from;
-		this->to = to;
-		this->cost = cost;
-	}
-};
-static bool cmp(Edge a, Edge b) {
-	return a.cost < b.cost;
-}
+
 class Kruskal {
 private:
 	Graph* connectionMap;
@@ -52,11 +39,11 @@ public:
 		 (vector<Edge>)edgeInfo 图中各个边信息
 	*/
 	Kruskal(int vertexCount,int edgeCount,vector<Edge> edgeInfo){
-		connectionMap = new Graph(vertexCount, true);
+		connectionMap = new Graph(vertexCount, true,edgeInfo);
 		for (int i = 0; i < vertexCount;i++) {
 			fatherSet[i] = i;
 		}
-		this->edges=edgeInfo;
+		this->edges=vector<Edge>(edgeInfo);
 		this->edgeCount = edgeCount;
 		this->vertexCount = vertexCount;
 		costSum = 0;
@@ -73,13 +60,15 @@ public:
 				connectionMap->connect(edges.at(i).from, edges.at(i).to);
 			}
 		}
+		connectionMap->printAdjacencyMatrix();
+		connectionMap->drawGraph(0);
 		if (unionedPoint == vertexCount - 1) {
 			return costSum;
 		}
 		else {
 			return -1;
 		}
-		connectionMap->printAdjacencyMatrix();
+		
 	}
 	~Kruskal() {
 		delete connectionMap;
