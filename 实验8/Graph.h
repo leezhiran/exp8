@@ -12,16 +12,18 @@ public:
 		this->to = to;
 		this->cost = cost;
 	}
-
+	Edge() {
+		this->from = -1;
+		this->to = -1;
+		this->cost = -1;
+	}
 };
-bool cmp(Edge a, Edge b) {
-	return a.cost < b.cost;
-}
+
 class Graph {
 
 	bool undirectedIndex;
 	int vertexCount;
-	bool** adjacencyMatrix;
+	pair<bool,Edge>** adjacencyMatrix;
 	vector<Edge> edges;
 public:
 	/*¹¹Ôìº¯Êý
@@ -33,13 +35,13 @@ public:
 		this->edges =vector<Edge>(edges);
 		this->undirectedIndex = undirectedIndex;
 		this->vertexCount = vertexCount;
-		adjacencyMatrix = new bool*[vertexCount];
+		adjacencyMatrix = new pair<bool,Edge>*[vertexCount];
 		for (int i = 0; i < vertexCount; i++) {
-			adjacencyMatrix[i] = new bool[vertexCount];
+			adjacencyMatrix[i] = new pair<bool,Edge>[vertexCount];
 		}
 		for (int i = 0; i < vertexCount; i++) {
 			for (int j = 0; j < vertexCount; j++) {
-				adjacencyMatrix[i][j] = false;
+				adjacencyMatrix[i][j].first = false;
 			}
 		}
 	}
@@ -58,9 +60,10 @@ public:
 			cerr << "VertexIndex:Out of Range" << endl;
 			return;
 		}
-		adjacencyMatrix[i][j] = true;
+		adjacencyMatrix[i][j].first = true;
 		if (undirectedIndex == true) {
-			adjacencyMatrix[j][i] = true;
+			adjacencyMatrix[j][i].first = true;
+			adjacencyMatrix[j][i].second = Edge(findPathByPoints(i,j));
 		}
 	}
 	/*
@@ -69,7 +72,8 @@ public:
 	void printAdjacencyMatrix() {
 		for (int i = 0; i < vertexCount; i++) {
 			for (int j = 0; j < vertexCount; j++) {
-				cout << adjacencyMatrix[i][j];
+				cout << adjacencyMatrix[i][j].first;
+				cout << adjacencyMatrix[i][j].second.from;
 			}
 			cout << endl;
 		}
@@ -89,24 +93,41 @@ public:
 		}
 		delete[]adjacencyMatrix;
 	}
-	void drawGraph(int entrance) {
-		bool first = true;
+	void drawGraphWrapper(int entrance) {
+		bool* visited = new bool[vertexCount];
+		fill(visited, visited + vertexCount, false);
 		for (int i = 0; i < vertexCount; i++) {
-			for (int j = 0; j < i; j++) {
-				if (adjacencyMatrix[i][j] == true) {
-					Edge cache=findPathByPoints(j, i);
-					if (first == true) {
-						cout << cache.from;
-						cout << "<=" << cache.cost << "=>";
-						cout << cache.to;
-						first = false;
-					}
-					else {
-						cout << "<=" << cache.cost << "=>";
-						cout << cache.to;
-					}
-				}
+			if (visited[i]==false) {
+				drawGraph(entrance, visited,i);
+			}
+			
+		}
+	}
+	void drawGraph(int entrance,bool* visited,int index) {
+		static bool thisIsFirstOutput = true;
+		static int tabCount = 0;
+		visited[entrance] = true;
+		
+		if (adjacencyMatrix[entrance][index].second.from != -1) {
+			tabCount++;
+			if (thisIsFirstOutput == true) {
+				cout << adjacencyMatrix[entrance][index].second.from << "=(" << adjacencyMatrix[entrance][index].second.cost << ")=>" << adjacencyMatrix[entrance][index].second.to;
+				thisIsFirstOutput = false;
+			}
+			else {
+				cout << "=(" << adjacencyMatrix[entrance][index].second.cost << ")=>" << adjacencyMatrix[entrance][index].second.to;
 			}
 		}
+		for (int j = 0; j < vertexCount; j++) {
+			if (visited[j] == false && adjacencyMatrix[entrance][j].first == true) {
+				drawGraph(j, visited,entrance);
+			}
+		}
+		cout << endl;
+		for (int i = 0; i < tabCount; i++) {
+			cout << "    ";
+		}
+		thisIsFirstOutput = true;
+		tabCount = 0;
 	}
 };
