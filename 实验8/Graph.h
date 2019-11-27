@@ -1,6 +1,7 @@
 #pragma once
 #include "iostream"
 #include "Kruskal.h"
+#include "iomanip"
 using namespace std;
 class Edge {
 public:
@@ -111,11 +112,11 @@ public:
 		if (adjacencyMatrix[entrance][index].second.from != -1) {
 			tabCount++;
 			if (thisIsFirstOutput == true) {
-				cout << adjacencyMatrix[entrance][index].second.from << "=(" << adjacencyMatrix[entrance][index].second.cost << ")=>" << adjacencyMatrix[entrance][index].second.to;
+				cout <<setw(2)<< adjacencyMatrix[entrance][index].second.from << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2) <<adjacencyMatrix[entrance][index].second.to;
 				thisIsFirstOutput = false;
 			}
 			else {
-				cout << "=(" << adjacencyMatrix[entrance][index].second.cost << ")=>" << adjacencyMatrix[entrance][index].second.to;
+				cout << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2)<< adjacencyMatrix[entrance][index].second.to;
 			}
 		}
 		for (int j = 0; j < vertexCount; j++) {
@@ -124,8 +125,8 @@ public:
 			}
 		}
 		cout << endl;
-		for (int i = 0; i < tabCount; i++) {
-			cout << "    ";
+		for (int i = 1; i < tabCount; i++) {
+			cout << "         ";
 		}
 		thisIsFirstOutput = true;
 		tabCount = 0;

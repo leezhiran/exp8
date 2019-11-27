@@ -86,7 +86,7 @@ public:
 			sum += findEdge(pointNew, edgesOld);
 		}
 		connectionMap->printAdjacencyMatrix();
-		connectionMap->drawGraph(chosenPoint);
+		connectionMap->drawGraphWrapper(0);
 		return sum;
 	}
 

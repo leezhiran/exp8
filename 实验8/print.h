@@ -1,7 +1,7 @@
 #pragma once
 #include "iostream"
 #include "windows.h"
-class Print{
+class Print {
 private:
 	int div;
 	int menuNum;
@@ -15,7 +15,7 @@ public:
 	/*
 		int division() 返回的结果对应菜单1/2/3
 	*/
-	void Menu1(){
+	void Menu1() {
 		system("cls");
 		cout << endl;
 		cout << endl;
@@ -31,7 +31,7 @@ public:
 		cout << "\t\t\t*                                                                   *" << endl;
 		cout << "\t\t\t*********************************************************************" << endl;
 	}
-	void Menu2(){
+	void Menu2() {
 		cout << "\t\t\t*********************************************************************" << endl;
 		cout << "\t\t\t*                     最小生成树模拟程序                            *" << endl;
 		cout << "\t\t\t*                                                                   *" << endl;
@@ -45,7 +45,7 @@ public:
 		bool flag1 = true;
 		while (flag1)
 		{
-			for (int i = 49; (i <= 49 + offset) && flag1; i++) 
+			for (int i = 49; (i <= 49 + offset) && flag1; i++)
 				if (GetAsyncKeyState(i) & 1 == 1)
 				{
 					flag1 = false;
@@ -71,6 +71,7 @@ public:
 				exit(1);
 			}
 			else return -1;
-		return div;
+			return div;
+		}
 	}
-}
+};
