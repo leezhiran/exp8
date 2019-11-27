@@ -99,18 +99,15 @@ public:
 		fill(visited, visited + vertexCount, false);
 		for (int i = 0; i < vertexCount; i++) {
 			if (visited[i]==false) {
-				drawGraph(entrance, visited,i);
+				drawGraph(entrance, visited,i,0);
 			}
 			
 		}
 	}
-	void drawGraph(int entrance,bool* visited,int index) {
+	void drawGraph(int entrance,bool* visited,int index,int tabs) {
 		static bool thisIsFirstOutput = true;
-		static int tabCount = 0;
 		visited[entrance] = true;
-		
 		if (adjacencyMatrix[entrance][index].second.from != -1) {
-			tabCount++;
 			if (thisIsFirstOutput == true) {
 				cout <<setw(2)<< adjacencyMatrix[entrance][index].second.from << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2) <<adjacencyMatrix[entrance][index].second.to;
 				thisIsFirstOutput = false;
@@ -119,16 +116,16 @@ public:
 				cout << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2)<< adjacencyMatrix[entrance][index].second.to;
 			}
 		}
-		for (int j = 0; j < vertexCount; j++) {
-			if (visited[j] == false && adjacencyMatrix[entrance][j].first == true) {
-				drawGraph(j, visited,entrance);
-			}
-		}
 		cout << endl;
-		for (int i = 1; i < tabCount; i++) {
+		for (int i = 0; i < tabs; i++) {
 			cout << "         ";
 		}
 		thisIsFirstOutput = true;
-		tabCount = 0;
+		for (int j = 0; j < vertexCount; j++) {
+			if (visited[j] == false && adjacencyMatrix[entrance][j].first == true) {
+				drawGraph(j, visited,entrance,tabs++);
+			}
+		}
+
 	}
 };
