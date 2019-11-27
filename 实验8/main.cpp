@@ -15,7 +15,8 @@ int main() {
 	edges.push_back(Edge(4, 7, 1));
 	edges.push_back(Edge(7, 8, 1));
 	edges.push_back(Edge(2, 9, 1));
-	Prim k(10, 10, edges);
+	edges.push_back(Edge(8, 10, 1));
+	Prim k(11, 11, edges);
     k.generateTree(0);
 
 //	Kruskal k(3,3,edges); 

@@ -2,6 +2,7 @@
 #include "iostream"
 #include "Kruskal.h"
 #include "iomanip"
+#include "map"
 using namespace std;
 class Edge {
 public:
@@ -106,8 +107,13 @@ public:
 	}
 	void drawGraph(int entrance,bool* visited,int index,int tabs) {
 		static bool thisIsFirstOutput = true;
+		static map<int, int> mapTab;
 		visited[entrance] = true;
 		if (adjacencyMatrix[entrance][index].second.from != -1) {
+				cout << endl;
+				for (int i = 0; i < tabs; i++) {
+					cout << "         ";
+				}
 			if (thisIsFirstOutput == true) {
 				cout <<setw(2)<< adjacencyMatrix[entrance][index].second.from << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2) <<adjacencyMatrix[entrance][index].second.to;
 				thisIsFirstOutput = false;
@@ -115,15 +121,21 @@ public:
 			else {
 				cout << "=(" <<setw(2)<< adjacencyMatrix[entrance][index].second.cost << ")=>" <<setw(2)<< adjacencyMatrix[entrance][index].second.to;
 			}
+			
 		}
-		cout << endl;
-		for (int i = 0; i < tabs; i++) {
-			cout << "         ";
-		}
+		
 		thisIsFirstOutput = true;
 		for (int j = 0; j < vertexCount; j++) {
 			if (visited[j] == false && adjacencyMatrix[entrance][j].first == true) {
-				drawGraph(j, visited,entrance,tabs++);
+				map<int, int>::iterator iti = mapTab.find(entrance);
+				if (iti != mapTab.end()) {
+					//cout << iti->second<<"*";
+					drawGraph(j, visited, entrance, iti->second);	
+				}
+				else {
+					mapTab.insert(pair<int, int>(entrance, ++tabs));
+					drawGraph(j, visited, entrance, tabs );
+				}
 			}
 		}
 
