@@ -27,6 +27,7 @@ class Graph {
 	int vertexCount;
 	pair<bool,Edge>** adjacencyMatrix;
 	vector<Edge> edges;
+	int flag = 0;
 public:
 	/*构造函数
 	参数：（int）vertexCount图中节点个数
@@ -133,6 +134,10 @@ public:
 					drawGraph(j, visited, entrance, iti->second);	
 				}
 				else {
+					if (!flag) { 
+						flag++; 
+						tabs--; 
+					}
 					mapTab.insert(pair<int, int>(entrance, ++tabs));
 					drawGraph(j, visited, entrance, tabs );
 				}
