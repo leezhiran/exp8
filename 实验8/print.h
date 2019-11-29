@@ -6,12 +6,12 @@ private:
 	int div;
 	int menuNum;
 	int start;
+public:
 	Print() {
 		div = 3;
-		menuNum = 3;
+		menuNum = 2;
 		start = 0;
 	}
-public:
 	/*
 		int division() 返回的结果对应菜单1/2/3
 	*/
@@ -27,16 +27,7 @@ public:
 		cout << "\t\t\t*                                                                   *" << endl;
 		cout << "\t\t\t*       1、普里姆（Prim）算法构造最小生成树                         *" << endl;
 		cout << "\t\t\t*       2、克鲁斯卡尔（Kruscal）算法构造最小生成树                  *" << endl;
-		cout << "\t\t\t*       3、退出                                         *" << endl;
-		cout << "\t\t\t*                                                                   *" << endl;
-		cout << "\t\t\t*********************************************************************" << endl;
-	}
-	void Menu2() {
-		cout << "\t\t\t*********************************************************************" << endl;
-		cout << "\t\t\t*                     最小生成树模拟程序                            *" << endl;
-		cout << "\t\t\t*                                                                   *" << endl;
-		cout << "\t\t\t*       输入起始地点                                       *" << endl;
-		cout << "\t\t\t*                                                  *" << endl;
+		cout << "\t\t\t*       3、退出											  *" << endl;
 		cout << "\t\t\t*                                                                   *" << endl;
 		cout << "\t\t\t*********************************************************************" << endl;
 	}
@@ -46,7 +37,7 @@ public:
 		while (flag1)
 		{
 			for (int i = 49; (i <= 49 + offset) && flag1; i++)
-				if (GetAsyncKeyState(i) & 1 == 1)
+				if (GetAsyncKeyState(i) & 1== 1)
 				{
 					flag1 = false;
 					div = i;
@@ -59,19 +50,10 @@ public:
 		while (1) {
 			Menu1();
 			solveExamine(menuNum);
-			if (div == 1) {
-				Menu2();
-				cin >> start;
-				cout << "\t\tstart ==" << start << endl;
+			if ((div == '1')||(div == '2')||(div=='3')) {
+				return div;
 			}
-			else if (div == 2) {
-				;
-			}
-			else if (div == 3) {
-				exit(1);
-			}
-			else return -1;
-			return div;
 		}
+		return -1;
 	}
 };

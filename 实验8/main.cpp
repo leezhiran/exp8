@@ -1,4 +1,6 @@
 #include "iostream"
+#include<algorithm>
+#include<vector>
 #include "Kruskal.h"
 #include "Prim.h"
 #include "Print.h"
@@ -16,9 +18,27 @@ int main() {
 	edges.push_back(Edge(7, 8, 1));
 	edges.push_back(Edge(2, 9, 1));
 	edges.push_back(Edge(8, 10, 1));
-	Prim k(11, 11, edges);
-    k.generateTree(0);
-
-//	Kruskal k(3,3,edges); 
-//	k.generateTree();
+	Print solve;
+	while (1) {	
+		system("cls");
+		int i = solve.division();
+		if (i == '1') {
+			cout << endl;
+			Prim a(11, 11, edges);
+			a.generateTree(0);
+			cout << endl;
+			getchar();
+			getchar();
+		}
+		else if (i == '2') {
+			cout << endl;
+			Kruskal k(11, 11, edges);
+			k.generateTree();
+			cout << endl;
+			getchar();
+			getchar();
+		}
+		else if (i == '3')
+			exit(1);
+	}
 }
