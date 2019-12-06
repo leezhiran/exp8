@@ -62,7 +62,7 @@ public:
 				connectionMap->connect(edges.at(i).from,edges.at(i).to);
 			}
 		}
-		connectionMap->printAdjacencyMatrix();
+		//connectionMap->printAdjacencyMatrix();
 		connectionMap->drawGraphWrapper(0);
 		if (unionedPoint == vertexCount - 1) {
 			return costSum;

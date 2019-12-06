@@ -85,7 +85,7 @@ public:
 		for (int i = 0; i < edgeCount  ; i++) {
 			sum += findEdge(pointNew, edgesOld);
 		}
-		connectionMap->printAdjacencyMatrix();
+		//connectionMap->printAdjacencyMatrix();
 		connectionMap->drawGraphWrapper(0);
 		return sum;
 	}

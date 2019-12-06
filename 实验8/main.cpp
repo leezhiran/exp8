@@ -18,27 +18,30 @@ int main() {
 	edges.push_back(Edge(7, 8, 1));
 	edges.push_back(Edge(2, 9, 1));
 	edges.push_back(Edge(8, 10, 1));
+	edges.push_back(Edge(0, 11, 1));
 	Print solve;
 	while (1) {	
-		system("cls");
-		int i = solve.division();
-		if (i == '1') {
-			cout << endl;
-			Prim a(11, 11, edges);
-			a.generateTree(0);
-			cout << endl;
-			getchar();
-			getchar();
-		}
-		else if (i == '2') {
-			cout << endl;
-			Kruskal k(11, 11, edges);
+		solve.Menu1();
+		char flag;
+		cout << endl << ">";
+		cin >> flag;
+		Kruskal k(12, 12, edges);
+		Prim p(12, 12, edges);
+		switch (flag) {
+		case '1':
 			k.generateTree();
 			cout << endl;
-			getchar();
-			getchar();
+			system("pause");
+			system("cls");
+			break;
+		case '2':
+			p.generateTree(0);
+			cout << endl;
+			system("pause");
+			system("cls");
+			break;
+		case '3':exit(0); break;
+		default: break;
 		}
-		else if (i == '3')
-			exit(1);
 	}
 }

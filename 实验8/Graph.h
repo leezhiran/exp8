@@ -124,7 +124,7 @@ public:
 			}
 			
 		}
-		
+		  
 		thisIsFirstOutput = true;
 		for (int j = 0; j < vertexCount; j++) {
 			if (visited[j] == false && adjacencyMatrix[entrance][j].first == true) {
